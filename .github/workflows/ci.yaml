@@ -1,0 +1,24 @@
+name: CI
+
+# Cancel previous runs that are not completed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - "main"
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  ci:
+    name: Build and push image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      - run: echo "Build docker image" 
