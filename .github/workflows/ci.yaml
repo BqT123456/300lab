@@ -6,7 +6,7 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  push:
+  pull-request:
     branches:
       - "main"
 
@@ -35,7 +35,7 @@ jobs:
           images: ${{ secrets.DOCKER_USERNAME }}/crawler-website
           tags: |
             type=raw,value={{date 'YYYY-MM-DD'}}
- 
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
